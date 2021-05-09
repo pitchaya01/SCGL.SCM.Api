@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lazarus.Common\Lazarus.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\Command\" />
+    <Folder Include="Domain\Entity\" />
+    <Folder Include="Domain\ObjValue\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.4" />
+  </ItemGroup>
+
+
+</Project>
