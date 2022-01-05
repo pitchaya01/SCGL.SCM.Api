@@ -1,13 +1,13 @@
 zookeeper:
  image: confluentinc/cp-zookeeper
- container_name: zookeeperjk
+ container_name: zkp
  ports:
    - "2181:2181"
  environment:
    - ZOOKEEPER_CLIENT_PORT=2181
  volumes:
-   - /vol1/zk-data:/var/lib/zookeeper/data
-   - /vol2/zk-txn-logs:/var/lib/zookeeper/log
+   - /vol/zk-data:/var/lib/zookeeper/data
+   - /vol/zk-txn-logs:/var/lib/zookeeper/log
 
 kafka1:
   image: confluentinc/cp-kafka
@@ -18,11 +18,11 @@ kafka1:
   links:
     - zookeeper
   environment:
-    - KAFKA_ZOOKEEPER_CONNECT=zookeeperjk:2181
+    - KAFKA_ZOOKEEPER_CONNECT=zkp:2181
     - KAFKA_OFFSETS_STORAGE=kafka1
     - KAFKA_ADVERTISED_HOST_NAME=192.168.68.103
     - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.68.103:9092
     - ALLOW_PLAINTEXT_LISTENER=yes
   volumes:
-    - /vol3/kafka-data:/var/lib/kafka/data
+    - /vol/kafka-data:/var/lib/kafka/data
 ~                                               
