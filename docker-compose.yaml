@@ -1,31 +1,28 @@
 zookeeper:
- image: confluent/zookeeper
- container_name: zookeeper
+ image: confluentinc/cp-zookeeper
+ container_name: zookeeperjk
  ports:
    - "2181:2181"
-   - "15001:15000"
  environment:
- ZK_SERVER_ID: 1
+   - ZOOKEEPER_CLIENT_PORT=2181
  volumes:
-   #- ./host/folder:/container/folder
-   - ./logs:/tmp/docker/zk1/logs
-   - ./data:/tmp/docker/zk1/data
-    
+   - /vol1/zk-data:/var/lib/zookeeper/data
+   - /vol2/zk-txn-logs:/var/lib/zookeeper/log
+
 kafka1:
-  image: confluent/kafka
+  image: confluentinc/cp-kafka
   container_name: kafka1
   ports:
-    #- "host-port:container-port"
     - "9092:9092"
     - "15002:15000"
   links:
     - zookeeper
   environment:
-    - KAFKA_BROKER_ID: 1
-    - KAFKA_OFFSETS_STORAGE: kafka
-    - # This is Container IP
-    - KAFKA_ADVERTISED_HOST_NAME: 192.168.99.100 
+    - KAFKA_ZOOKEEPER_CONNECT=zookeeperjk:2181
+    - KAFKA_OFFSETS_STORAGE=kafka1
+    - KAFKA_ADVERTISED_HOST_NAME=192.168.68.103
+    - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.68.103:9092
+    - ALLOW_PLAINTEXT_LISTENER=yes
   volumes:
-    #- ./host/folder:/container/folder
-    - ./logs:/tmp/docker/kafka1/logs
-    - ./data:/tmp/docker/kafka1/data
+    - /vol3/kafka-data:/var/lib/kafka/data
+~                                               
