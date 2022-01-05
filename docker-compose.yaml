@@ -1,6 +1,6 @@
 zookeeper:
  image: confluentinc/cp-zookeeper
- container_name: zk-1
+ container_name: zkp-1
  ports:
    - "2181:2181"
  environment:
@@ -18,7 +18,7 @@ kafka:
   links:
     - zookeeper
   environment:
-    - KAFKA_ZOOKEEPER_CONNECT=zk-1:2181
+    - KAFKA_ZOOKEEPER_CONNECT=zkp-1:2181
     - KAFKA_OFFSETS_STORAGE=kafka
     - KAFKA_ADVERTISED_HOST_NAME=192.168.68.103
     - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.68.103:9092
